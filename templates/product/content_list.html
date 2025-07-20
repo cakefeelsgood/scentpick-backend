@@ -1,64 +1,28 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Small Business - Start Bootstrap Template</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-</head>
-<body>
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container px-5">
-        <a class="navbar-brand" href="/">Start Bootstrap</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/company/">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- Main content -->
-<div class="container px-4 px-lg-5 mt-5">
-
-    {% if content_list %}
+{% extends 'base.html' %}
+{% block content %}
+<!-- Page Content-->
+<div class="container px-4 px-lg-5">
+    <!-- Main content -->
+        {% if content_list %}
         {% for content in content_list %}
-            <div class="row gx-4 gx-lg-5 align-items-center mb-5">
-                <div class="col-lg-7">
-                    <img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." />
-                </div>
-                <div class="col-lg-5">
-                    <h2 class="fw-bolder">
-                        <a href="/product/{{ content.id }}/" class="text-dark text-decoration-none">{{ content.title }}</a>
-                    </h2>
-                    <p>{{ content.content }}</p>
-                    <a class="btn btn-primary" href="/product/{{ content.id }}/">Call to Action!</a>
-                </div>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>content가 없습니다.</p>
-    {% endif %}
+                <div class="row gx-4 gx-lg-5 align-items-center mb-5">
+                    <div class="col-lg-7">
+                        <img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." />
+                    </div>
 
-</div>
+                    <div class="col-lg-5">
+                        <h2 class="fw-bolder">
+                            <a href="/product/{{ content.id }}/" class="text-dark text-decoration-none">{{ content.title }}</a>
+                        </h2>
 
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container px-4 px-lg-5">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2025</p>
+                        <p>{{ content.content| truncatewords:30 }}</p>
+                        <a class="btn btn-primary" href="{% url 'detail' content_id %">상품 상세보기</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>content가 없습니다.</p>
+        {% endif %}
+
     </div>
-</footer>
-
-</body>
-</html>
+    {% endblock %}
