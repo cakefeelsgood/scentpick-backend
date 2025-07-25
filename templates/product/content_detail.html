@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>{{ content_list.title }}</h2>
+
+{% if content_list.image %}
+    <img src="{{ content_list.image.url }}" alt="{{ content_list.title }}" class="img-fluid rounded mb-4" />
+{% else %}
+    <img src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="기본 이미지" class="img-fluid rounded mb-4" />
+{% endif %}
+
 <div>
 {{ content_list.content }}
 </div>

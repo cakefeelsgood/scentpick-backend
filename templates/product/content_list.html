@@ -3,26 +3,31 @@
 <!-- Page Content-->
 <div class="container px-4 px-lg-5">
     <!-- Main content -->
-        {% if content_list %}
+    {% if content_list %}
         {% for content in content_list %}
-                <div class="row gx-4 gx-lg-5 align-items-center mb-5">
-                    <div class="col-lg-7">
-                        <img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="..." />
-                    </div>
-
-                    <div class="col-lg-5">
-                        <h2 class="fw-bolder">
-                            <a href="/product/{{ content.id }}/" class="text-dark text-decoration-none">{{ content.title }}</a>
-                        </h2>
-
-                        <p>{{ content.content| truncatewords:30 }}</p>
-                        <a class="btn btn-primary" href="{% url 'detail' content_id %">상품 상세보기</a>
-                    </div>
+            <div class="row gx-4 gx-lg-5 align-items-center mb-5">
+                <div class="col-lg-7">
+                    {% if content.image %}
+                        <img class="img-fluid rounded mb-4 mb-lg-0" src="{{ content.image.url }}" alt="{{ content.title }}" />
+                    {% else %}
+                        <img class="img-fluid rounded mb-4 mb-lg-0" src="https://dummyimage.com/900x400/dee2e6/6c757d.jpg" alt="no image" />
+                    {% endif %}
                 </div>
-            {% endfor %}
-        {% else %}
-            <p>content가 없습니다.</p>
-        {% endif %}
 
-    </div>
-    {% endblock %}
+                <div class="col-lg-5">
+                    <h2 class="fw-bolder">
+                        <a href="{% url 'detail' content.id %}" class="text-dark text-decoration-none">
+                            {{ content.title }}
+                        </a>
+                    </h2>
+
+                    <p>{{ content.content|truncatewords:30 }}</p>
+                    <a class="btn btn-primary" href="{% url 'detail' content.id %}">상품 상세보기</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>content가 없습니다.</p>
+    {% endif %}
+</div>
+{% endblock %}
